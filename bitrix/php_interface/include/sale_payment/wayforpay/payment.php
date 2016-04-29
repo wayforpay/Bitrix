@@ -104,7 +104,7 @@ $formFields['language'] = CSalePaySystemAction::GetParamValue("W4P_LANGUAGE");
 
 $formFields['merchantSignature'] = $w4p->getRequestSignature($formFields);
 
-echo '	<form action="' . Way4Pay::URL . '" method="post" id="wfp_payment_form">';
+echo '	<form action="' . Way4Pay::URL . '" method="post" id="wfp_payment_form" accept-charset="utf-8">';
 foreach ($formFields as $name => $field) {
     if (is_array($field)) {
         foreach ($field as $aField) {
