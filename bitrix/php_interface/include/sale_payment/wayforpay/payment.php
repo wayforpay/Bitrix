@@ -46,7 +46,7 @@ $productQty = array();
 $productPrices = array();
 
 foreach ($basket as $item) {
-    $productNames[] = $item['NAME'];
+    $productNames[] = addslashes($item['NAME']);
     $productPrices[] = round($item['PRICE'], 2);
     $productQty[] = (int)$item['QUANTITY'];
 }
