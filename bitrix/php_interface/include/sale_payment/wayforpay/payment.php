@@ -35,7 +35,8 @@ $formFields = array();
 
 $formFields['merchantAccount'] = CSalePaySystemAction::GetParamValue("W4P_MERCHANT");
 $formFields['orderReference'] = $orderID;
-$formFields['orderDate'] = strtotime($arOrder['DATE_INSERT']);
+//$formFields['orderDate'] = strtotime($arOrder['DATE_INSERT']);
+$formFields['orderDate'] = time();
 $formFields['merchantAuthType'] = 'simpleSignature';
 $formFields['merchantDomainName'] = $_SERVER['HTTP_HOST'];
 $formFields['merchantTransactionSecureType'] = 'AUTO';
