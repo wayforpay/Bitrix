@@ -109,10 +109,10 @@ echo '	<form action="' . Way4Pay::URL . '" method="post" id="wfp_payment_form" a
 foreach ($formFields as $name => $field) {
     if (is_array($field)) {
         foreach ($field as $aField) {
-            echo '<input type="hidden" name="' . $name . '[]" value="' . $aField . '" />';
+            echo '<input type="hidden" name="' . $name . '[]" value="' . htmlspecialchars($aField) . '" />';
         }
     } else {
-        echo '<input type="hidden" name="' . $name . '" value="' . $field . '" />';
+        echo '<input type="hidden" name="' . $name . '" value="' . htmlspecialchars($field) . '" />';
     }
 }
 echo '<input type="submit" /></form>';
