@@ -9,7 +9,10 @@ if (isset($arResult['ORDER_ID'])) {
 
 $w4p = new Way4Pay();
 
-$ORDER_ID = filter_var($ORDER_ID, FILTER_SANITIZE_NUMBER_INT);
+//$ORDER_ID = filter_var($ORDER_ID, FILTER_SANITIZE_NUMBER_INT);
+$ORDER_ID = (strlen(CSalePaySystemAction::GetParamValue('ORDER_ID')) > 0)
+	? CSalePaySystemAction::GetParamValue('ORDER_ID')
+	: $GLOBALS['SALE_INPUT_PARAMS']['ORDER']['ID'];
 
 $arOrder = CSaleOrder::GetByID($ORDER_ID);
 $dbBasket = CSaleBasket::GetList(Array("ID" => "ASC"), Array("ORDER_ID" => $ORDER_ID));
