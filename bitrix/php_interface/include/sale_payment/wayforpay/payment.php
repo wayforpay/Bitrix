@@ -58,6 +58,18 @@ foreach ($basket as $item) {
     $productPrices[] = round($item['PRICE'], 2);
     $productQty[] = (int)$item['QUANTITY'];
 }
+
+/* if basket is empty */
+if (
+    empty($productNames) &&
+    empty($productPrices) &&
+    empty($productQty)
+) {
+    $productNames  = array('Purchase on '.$formFields['merchantDomainName']);
+    $productPrices =  array($formFields['amount']);
+    $productQty    = array(1);
+}
+
 $formFields['productName'] = $productNames;
 $formFields['productPrice'] = $productPrices;
 $formFields['productCount'] = $productQty;
