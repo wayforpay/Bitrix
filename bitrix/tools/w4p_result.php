@@ -30,6 +30,7 @@ if (CModule::IncludeModule('sale')) {
 
     if($WfpResult){
         $arFields = array(
+            /*Статус P=payed, если Вы используете другой финальный статус, то замените STATUS_ID на нужный*/
             "STATUS_ID" => "P",
             "PAYED" => "Y",
             "PS_STATUS" => "Y",
@@ -41,17 +42,19 @@ if (CModule::IncludeModule('sale')) {
             "PS_RESPONSE_DATE" => date("d.m.Y H:i:s"),
         );
         CSaleOrder::Update($ORDER_ID, $arFields);
+        $response = [
+            'orderReference' => $data['orderReference'],
+            'status'         => 'accept',
+            'time'           => time(),
+            'signature'      => '',
+        ];
+        $response['signature'] = $wfPayment->getSignature(['orderReference', 'status', 'time'], $response);
+
+        echo json_encode($response);
+    } else {
+        print_r($WfpResult);
     }
 
-    $response = [
-        'orderReference' => $data['orderReference'],
-        'status'         => 'accept',
-        'time'           => time(),
-        'signature'      => '',
-    ];
-    $response['signature'] = $wfPayment->getSignature(['orderReference', 'status', 'time'], $response);
-    
-    echo json_encode($response);
 }
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
