@@ -43,7 +43,15 @@ if (CModule::IncludeModule('sale')) {
         CSaleOrder::Update($ORDER_ID, $arFields);
     }
 
-    echo $wfPayment->getResponseSignature($data);
+    $response = [
+        'orderReference' => $data['orderReference'],
+        'status'         => 'accept',
+        'time'           => time(),
+        'signature'      => '',
+    ];
+    $response['signature'] = $wfPayment->getSignature(['orderReference', 'status', 'time'], $response);
+    
+    echo json_encode($response);
 }
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
