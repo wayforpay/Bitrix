@@ -7,7 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") die();
 if (!require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php")) die('prolog_before.php not found!');
 
 if (CModule::IncludeModule('sale')) {
-    $ordArray = explode( "_", $_POST['orderReference'] ); //order_id 
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $ordArray = explode( "_", $data['orderReference']); //order_id 
     $ORDER_ID = $ordArray[1];
 
     $arOrder = CSaleOrder::GetByID($ORDER_ID);
@@ -22,7 +24,6 @@ if (CModule::IncludeModule('sale')) {
 
     include $_SERVER['DOCUMENT_ROOT'] . $payData['ACTION_FILE'] . "/way4pay.cls.php";
 
-    $data = json_decode(file_get_contents("php://input"), true);
 
     $wfPayment = new Way4Pay();
     $WfpResult = $wfPayment->isPaymentValid($data);
