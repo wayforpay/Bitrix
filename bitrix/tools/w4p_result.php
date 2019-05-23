@@ -28,7 +28,7 @@ if (CModule::IncludeModule('sale')) {
     $wfPayment = new Way4Pay();
     $WfpResult = $wfPayment->isPaymentValid($data);
 
-    if($WfpResult){
+    if($WfpResult === true){
         $arFields = array(
             /*Статус P=payed, если Вы используете другой финальный статус, то замените STATUS_ID на нужный*/
             "STATUS_ID" => "P",
