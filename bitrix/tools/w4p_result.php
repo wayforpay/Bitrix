@@ -48,7 +48,7 @@ if (CModule::IncludeModule('sale')) {
             'time'           => time(),
             'signature'      => '',
         ];
-        $response['signature'] = $wfPayment->getSignature(['orderReference', 'status', 'time'], $response);
+        $response['signature'] = $wfPayment->getSignature($response, ['orderReference', 'status', 'time']);
 
         echo json_encode($response);
     } else {
