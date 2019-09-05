@@ -23,9 +23,12 @@ if (CModule::IncludeModule('sale')) {
     $payData = $temp->Fetch();
 
     include $_SERVER['DOCUMENT_ROOT'] . $payData['ACTION_FILE'] . "/way4pay.cls.php";
+    $wfpOpt = array();
+    $b = unserialize($payData['PARAMS']);
+    foreach ($b as $k => $v) $wfpOpt[$k] = $v['VALUE'];
 
 
-    $wfPayment = new Way4Pay();
+    $wfPayment = new Way4Pay($wfpOpt);
     $WfpResult = $wfPayment->isPaymentValid($data);
 
     if($WfpResult === true){
