@@ -30,6 +30,12 @@ class Way4Pay
         'productPrice'
     );
 
+    protected $opt = [];
+
+    public function __construct(array $opt = []) {
+        $this->opt= $opt;
+    }
+
     public function allowedCurrency()
     {
         return array('UAH', 'RUB', 'USD', 'EUR');
@@ -57,9 +63,12 @@ class Way4Pay
             }
         }
         $hash = implode(self::WAYFORPAY_SIGNATURE_SEPARATOR, $hash);
-
-        return hash_hmac('md5', $hash, CSalePaySystemAction::GetParamValue("W4P_SECURE_KEY"));
-    }
+        $skey = CSalePaySystemAction::GetParamValue("W4P_SECURE_KEY");
+        if ($skey == false) {
+            $skey = isset($this->opt['W4P_SECURE_KEY'])?$this->opt['W4P_SECURE_KEY']:'';
+        }
+        return hash_hmac('md5', $hash, $skey);
+     }
 
     /**
      * @param $options
