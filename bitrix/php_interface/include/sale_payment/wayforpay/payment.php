@@ -1,5 +1,5 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-include dirname(__FILE__) . "/way4pay.cls.php";
+require_once(dirname(__FILE__) . "/way4pay.cls.php");
 
 if (isset($arResult['ORDER_ID'])) {
     $ORDER_ID = $arResult['ORDER_ID'];
