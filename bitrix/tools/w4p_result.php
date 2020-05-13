@@ -2,6 +2,7 @@
 #ini_set( "display_errors", true );
 #error_reporting( E_ALL );
 
+#define("NOT_CHECK_PERMISSIONS", true);
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") die();
 if (!require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php")) die('prolog_before.php not found!');
