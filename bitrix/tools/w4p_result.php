@@ -15,6 +15,10 @@ if (CModule::IncludeModule('sale')) {
 
     $arOrder = CSaleOrder::GetByID($ORDER_ID);
 
+    /*use for ACCOUNT_NUMBER*/
+//    $arOrder = CSaleOrder::GetList([],["ACCOUNT_NUMBER"=>intval($ORDER_ID)])->arResult[0];
+//    $ORDER_ID = $arOrder['ID'];
+
     $payID = $arOrder['PAY_SYSTEM_ID'];
 
     $temp = CSalePaySystemAction::GetList(
