@@ -50,19 +50,15 @@ if (CModule::IncludeModule('sale')) {
             "PS_RESPONSE_DATE" => date("d.m.Y H:i:s"),
         );
         CSaleOrder::Update($ORDER_ID, $arFields);
-        $response = [
-            'orderReference' => $data['orderReference'],
-            'status'         => 'accept',
-            'time'           => time(),
-            'signature'      => '',
-        ];
-        $response['signature'] = $wfPayment->getSignature($response, ['orderReference', 'status', 'time']);
-
-        echo json_encode($response);
-    } else {
-        print_r($WfpResult);
     }
-
+    $response = [
+        'orderReference' => $data['orderReference'],
+        'status'         => 'accept',
+        'time'           => time(),
+        'signature'      => '',
+    ];
+    $response['signature'] = $wfPayment->getSignature($response, ['orderReference', 'status', 'time']);
+    echo json_encode($response);
 }
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
